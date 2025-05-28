@@ -1,6 +1,6 @@
 # concierge-mini
 
-I have used the openai API directly and wrote the entire code using python for better control
+I have used the openai API client directly and wrote the entire code using python for better control. I have used Gemini-2.0-flash model for the workflow.
 
 To setup the app, start by cloning the repo
 
