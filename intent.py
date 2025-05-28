@@ -9,7 +9,7 @@ The queries that are under your responsibility are as follows:
 1. travel
 2. gifting
 3. dining
-4. cab request
+4. cab_request
 
 After identifying the intent, you also need to give a confidence score between 0 and 1 of how 
 sure you are about the intent you have identified.
@@ -21,7 +21,7 @@ class Intent(str, Enum):
     travel = "travel"
     gifting = "gifting"
     dining = "dining"
-    cab_request = "cab request"
+    cab_request = "cab_request"
     other = "other"
 
 class IntentClassifierResponse(BaseModel):
