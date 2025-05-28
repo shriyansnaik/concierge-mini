@@ -1,7 +1,38 @@
 # concierge-mini
 
-TODO:
- - Give simple setup steps
- - Host the bot
- - Check if can add langfuse
- - have a config.py file to add api credentials
+I have used the openai API directly and wrote the entire code using python for better control
+
+To setup the app, start by cloning the repo
+
+```
+git clone https://github.com/shriyansnaik/concierge-mini.git
+cd concierge-mini
+```
+
+Then install the requirements
+```
+pip install -r requirements.txt
+```
+
+Then create a .env file and add your Gemini key. The file should look like:
+```
+GEMINI_API_KEY=<gemini-key>
+```
+
+Finally run the streamlit UI
+```
+streamlit run app.py
+```
+
+A few sample questions and their outputs have been saved in the `sample` folder.  
+The same questions are also directly accessible from the left pane of the UI.  
+
+For each intent category, I have set certain required fields:
+```
+required_fields = {
+    "cab_request": ["destination", "price_range", "pickup_location"],
+    "gifting": ["budget", "occasion"],
+    "travel": ["number_of_members", "destination", "date"],
+    "dining": ["number_of_members", "date", "time", "location", "cuisine"],
+}
+```

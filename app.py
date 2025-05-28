@@ -19,8 +19,8 @@ extractor = Extractor(llm)
 web_browser = Internet(llm)
 generate_follow_up = FollowUpQuestionGenerator(llm)
 
-st.set_page_config(page_title="Concierge Mini", page_icon="🤖")
-st.title("🤖 Concierge Mini")
+st.set_page_config(page_title="Concierge Mini")
+st.title("Concierge Mini")
 
 def pretty_json(data):
     return json.dumps(data, indent=2, ensure_ascii=False)
