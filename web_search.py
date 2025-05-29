@@ -1,5 +1,8 @@
 from duckduckgo_search import DDGS
 from pydantic import BaseModel
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 search_query_generator_prompt = """You are an expert at web search. Given a user query, 
 you need to generate a search query that will give the most relevant results to find solution 
@@ -26,7 +29,7 @@ class Internet:
 
     def generate_search_query(self, query):
         response = self.llm.chat.completions.create(
-            model="gemini-2.0-flash",
+            model=os.getenv("MODEL_NAME"),
             messages=[{"role": "system", "content": search_query_generator_prompt}, {"role": "user", "content": query}],
         )
         return response.choices[0].message.content
