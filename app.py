@@ -11,7 +11,7 @@ import json
 
 load_dotenv()
 llm = OpenAI(
-    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+    base_url=os.getenv("GEMINI_BASE_URL"),
     api_key=os.getenv("GEMINI_API_KEY")
 )
 classifier = IntentClassifier(llm)
@@ -38,7 +38,6 @@ def process_query(query):
     return res
 
 example_queries = [
-    "book me a cab to swiggy office banglore from banglore airport. i need an SUV",
     "my moms birthday is coming up. i want to buy her a watch",
     "i want to visit brazil this summer",
     "Need a sunset-view table for two tonight; gluten-free menu a must",
