@@ -1,28 +1,40 @@
+from duckduckgo_search import DDGS
 from pydantic import BaseModel
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
-class FollowUpQuestion(BaseModel):
-    follow_up_questions: list[str]
+search_query_generator_prompt = """You are an expert at web search. Given a user query, 
+you need to generate a search query that will give the most relevant results to find solution 
+for user's query. The search query should be a single concise sentence. This search query will 
+be entered into a search engine so structure it in a search query way.
 
-follow_up_question_generator_prompt = """You are an expert conversationalist and asking to the point precise questions.
+For example:
+User query: I want to buy an iPhone 15 Pro Max for my friend's birthday.
+Search query: buy iPhone 15 Pro Max 
 
-You are given a user query and a list of missing values. You need to generate a follow up for each of the missing value.
+User Query: Need flight from Delhi to Mumbai on 1st June because I need to attend my sister's wedding.
+Search query: flights from Delhi to Mumbai on 1st June
 
-Your language should be casual and the question should be precise and to the point. 
+User Query: I want how to know how to make a newyork cheesecake.
+Search query: newyork cheesecake recipe
 
-When phrasing the question, use the name of the missing value in the question.
+You MUST respond with a single search query and no additional text.
+"""
 
-Generate follow ups ONLY for the missing values and nothing else."""
 
-class FollowUpQuestionGenerator:
+class Internet:
     def __init__(self, llm):
         self.llm = llm
 
-    def __call__(self, query, missing_values):
-        prompt = f"User query: {query}\nMissing values: {missing_values}"
-        response = self.llm.beta.chat.completions.parse(
-            model="gemini-2.0-flash",
-            messages=[{"role": "system", "content": follow_up_question_generator_prompt}, {"role": "user", "content": prompt}],
-            response_format=FollowUpQuestion,
+    def generate_search_query(self, query):
+        response = self.llm.chat.completions.create(
+            model=os.getenv("MODEL_NAME"),
+            messages=[{"role": "system", "content": search_query_generator_prompt}, {"role": "user", "content": query}],
         )
-        res = response.choices[0].message.parsed
-        return res.follow_up_questions
+        return response.choices[0].message.content
+
+    def __call__(self, query):
+        search_query = self.generate_search_query(query)
+        results = DDGS().text(search_query, max_results=5)
+        return results
