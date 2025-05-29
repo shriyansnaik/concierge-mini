@@ -38,6 +38,7 @@ def process_query(query):
     return res
 
 example_queries = [
+    "book me a cab to swiggy office banglore from banglore airport. i need an SUV",
     "my moms birthday is coming up. i want to buy her a watch",
     "i want to visit brazil this summer",
     "Need a sunset-view table for two tonight; gluten-free menu a must",
