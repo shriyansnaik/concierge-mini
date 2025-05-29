@@ -9,6 +9,14 @@ git clone https://github.com/shriyansnaik/concierge-mini.git
 cd concierge-mini
 ```
 
+First make a python environment
+```
+python -m venv venv
+
+# source venv/bin/activate (activate for mac/linux)
+venv\Scripts\activate.bat (activate for windows)
+```
+
 Then install the requirements
 ```
 pip install -r requirements.txt
@@ -17,7 +25,10 @@ pip install -r requirements.txt
 Then create a .env file and add your Gemini key. The file should look like:
 ```
 GEMINI_API_KEY=<gemini-key>
+GEMINI_BASE_URL="https://generativelanguage.googleapis.com/v1beta/openai/"
+MODEL_NAME="gemini-2.0-flash"
 ```
+I have used gemini, but you can use any openai compatible base url.
 
 Finally run the streamlit UI
 ```
