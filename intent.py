@@ -1,5 +1,8 @@
 from pydantic import BaseModel
 from enum import Enum
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 intent_classifier_prompt = """You are a concierge at a seven star hotel. Your goal is to 
 identify what the user wants. Since the hotel is big and there a lot of customers, you can 
@@ -34,7 +37,7 @@ class IntentClassifier:
 
     def __call__(self, query):
         response = self.llm.beta.chat.completions.parse(
-            model="gemini-2.0-flash",
+            model=os.getenv("MODEL_NAME"),
             messages=[{"role": "system", "content": intent_classifier_prompt}, {"role": "user", "content": query}],
             response_format=IntentClassifierResponse,
         )
