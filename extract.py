@@ -1,4 +1,7 @@
 from parser import json_parser
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 required_fields = {
     "cab_request": ["destination", "price_range", "pickup_location"],
@@ -44,7 +47,7 @@ class Extractor:
     def __call__(self, query, intent):
         extraction_prompt = create_extraction_prompt(intent)
         response = self.llm.chat.completions.create(
-            model="gemini-2.0-flash",
+            model=os.getenv("MODEL_NAME"),
             messages=[{"role": "system", "content": extraction_prompt}, {"role": "user", "content": query}],
         )
         res = response.choices[0].message.content
