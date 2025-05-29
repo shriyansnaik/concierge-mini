@@ -2,6 +2,8 @@
 
 I have used the openai API client directly and wrote the entire code using python for better control. I have used Gemini-2.0-flash model for the workflow.
 
+> NOTE: I have used structured outputs API which are currently enabled only by openai and gemini so please use either of those providers. You can make your Gemini API key here for free: https://aistudio.google.com/apikey
+
 To setup the app, start by cloning the repo
 
 ```
